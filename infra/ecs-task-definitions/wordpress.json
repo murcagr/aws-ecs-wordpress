@@ -1,0 +1,64 @@
+[
+    {
+        "name": "wordpress",
+        "image": "public.ecr.aws/bitnami/wordpress:latest",
+        "cpu": 1024,
+        "memory": 1024,
+        "essential": true,
+        "executionRoleArn": "${ecs_task_execution_role_arn}",
+        "portMappings": [
+             {
+                 "containerPort": 8080,
+                 "protocol": "tcp"
+             }
+         ],
+        "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "awslogs-wordpress",
+                    "awslogs-region": "us-west-2",
+                    "awslogs-stream-prefix": "awslogs-example"
+                }
+            },
+        "links": [],
+        "environment": [
+          {
+            "name": "WORDPRESS_DATABASE_HOST",
+            "value": "${db_host}"
+          },
+          {
+            "name": "WORDPRESS_DATABASE_PORT",
+            "value": "${db_port}"
+          },
+          {
+            "name": "WORDPRESS_DATABASE_USER",
+            "value": "${db_user}"
+          },
+          {
+            "name": "WORDPRESS_DATABASE_PASSWORD",
+            "value": "${db_password}"
+          },
+          {
+            "name": "WORDPRESS_DATABASE_NAME",
+            "value": "${db_name}"
+          },
+          {
+            "name": "WORDPRESS_TITLE",
+            "value": "${wp_title}"
+          },
+          {
+            "name": "WORDPRESS_USERNAME",
+            "value": "${wp_user}"
+          },
+          {
+            "name": "WORDPRESS_PASSWORD",
+            "value": "${wp_password}"
+          },
+          {
+            "name": "WORDPRESS_EMAIL",
+            "value": "${wp_mail}"
+          }
+        ]
+    }
+]
